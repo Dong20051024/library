@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>图书馆座位预约 - 首页</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/libseat.css">
+</head>
+<body>
+  <!-- 顶部导航 -->
+  <nav class="ls-topnav">
+    <a href="index.html" class="ls-topnav-brand">📚 图书馆座位预约</a>
+    <div class="ls-topnav-right">
+      <div class="ls-account-switcher" onclick="toggleDropdown(event)">
+        <span class="avatar">1</span>
+        <span>学生1</span>
+        <span style="font-size:10px;">▼</span>
+        <div class="ls-account-dropdown" id="accountDropdown">
+          <a href="?user=student1" class="active">👤 学生1</a>
+          <a href="?user=student2">👤 学生2</a>
+          <a href="?user=student3">👤 学生3</a>
+          <a href="?user=student4">👤 学生4</a>
+          <a href="?user=student5">👤 学生5</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 手机端框架 -->
+  <div class="ls-phone-frame">
+    <div class="ls-page">
+      <!-- 欢迎区域 -->
+      <div style="text-align:center; padding: 32px 0 16px;">
+        <div style="font-size:40px; margin-bottom:8px;">📖</div>
+        <h1 style="font-size:22px; font-weight:700; color:var(--ls-text-primary);">欢迎使用</h1>
+        <p style="font-size:14px; color:var(--ls-text-secondary); margin:4px 0 0;">
+          当前体验账号：<strong style="color:var(--ls-primary);">学生1</strong>
+        </p>
+        <p style="font-size:13px; color:var(--ls-text-placeholder); margin-top:4px;">
+          切换账号请点击右上角
+        </p>
+      </div>
+
+      <!-- 功能入口卡片 -->
+      <div style="display:flex; flex-direction:column; gap:12px; margin-top:8px;">
+        <a href="user/seats.html" class="ls-card" style="display:flex; align-items:center; gap:16px; padding:20px; text-decoration:none; color:inherit;">
+          <div style="width:48px; height:48px; border-radius:12px; background:var(--ls-primary-light); display:flex; align-items:center; justify-content:center; font-size:24px; flex-shrink:0;">
+            🪑
+          </div>
+          <div style="flex:1;">
+            <div style="font-size:16px; font-weight:600;">查看座位</div>
+            <div style="font-size:13px; color:var(--ls-text-secondary); margin-top:2px;">浏览所有座位，预约空闲座位</div>
+          </div>
+          <div style="font-size:18px; color:var(--ls-text-placeholder);">→</div>
+        </a>
+
+        <a href="user/my-reservations.html" class="ls-card" style="display:flex; align-items:center; gap:16px; padding:20px; text-decoration:none; color:inherit;">
+          <div style="width:48px; height:48px; border-radius:12px; background:var(--ls-success-bg); display:flex; align-items:center; justify-content:center; font-size:24px; flex-shrink:0;">
+            📋
+          </div>
+          <div style="flex:1;">
+            <div style="font-size:16px; font-weight:600;">我的预约</div>
+            <div style="font-size:13px; color:var(--ls-text-secondary); margin-top:2px;">查看和取消我的座位预约</div>
+          </div>
+          <div style="font-size:18px; color:var(--ls-text-placeholder);">→</div>
+        </a>
+
+        <div class="ls-card" style="display:flex; align-items:center; gap:16px; padding:20px; cursor:pointer;" onclick="toggleDropdown(event)">
+          <div style="width:48px; height:48px; border-radius:12px; background:var(--ls-warning-bg); display:flex; align-items:center; justify-content:center; font-size:24px; flex-shrink:0;">
+            🔄
+          </div>
+          <div style="flex:1;">
+            <div style="font-size:16px; font-weight:600;">切换账号</div>
+            <div style="font-size:13px; color:var(--ls-text-secondary); margin-top:2px;">当前：学生1</div>
+          </div>
+          <div style="font-size:18px; color:var(--ls-text-placeholder);">▼</div>
+        </div>
+      </div>
+
+      <!-- 底部提示 -->
+      <div style="text-align:center; margin-top:24px; padding:16px;">
+        <p style="font-size:12px; color:var(--ls-text-placeholder);">
+          图书馆座位预约系统 v1.0 · 静态原型
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/libseat.js"></script>
+</body>
+</html>

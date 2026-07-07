@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数据统计 - 管理后台</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/libseat.css">
+  <style>
+    .bar-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 12px;
+      height: 160px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--ls-border);
+    }
+    .bar-chart .bar-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .bar-chart .bar {
+      width: 100%;
+      max-width: 48px;
+      border-radius: 6px 6px 0 0;
+      background: var(--ls-primary);
+      min-height: 4px;
+      transition: height 0.3s;
+    }
+    .bar-chart .bar-label {
+      font-size: 11px;
+      color: var(--ls-text-secondary);
+      white-space: nowrap;
+    }
+    .bar-chart .bar-value {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ls-text-primary);
+    }
+  </style>
+</head>
+<body>
+  <div class="ls-admin-wrapper">
+    <!-- 侧边栏 -->
+    <aside class="ls-sidebar">
+      <div class="ls-sidebar-logo">📚 后台管理</div>
+      <nav class="ls-sidebar-menu">
+        <a href="reservations.html" class="ls-sidebar-item">
+          <span class="icon">📋</span> 预约管理
+        </a>
+        <a href="seats-management.html" class="ls-sidebar-item">
+          <span class="icon">🪑</span> 座位管理
+        </a>
+        <a href="statistics.html" class="ls-sidebar-item active">
+          <span class="icon">📊</span> 统计
+        </a>
+      </nav>
+      <div style="padding:16px 20px; border-top:1px solid rgba(255,255,255,0.1);">
+        <a href="login.html" style="color:rgba(255,255,255,0.6); font-size:13px; text-decoration:none;">← 退出登录</a>
+      </div>
+    </aside>
+
+    <!-- 主内容区 -->
+    <main class="ls-admin-main">
+      <header class="ls-admin-header">
+        <div class="ls-admin-header-left">
+          <span class="page-title">数据统计</span>
+        </div>
+        <div class="ls-admin-header-right">
+          <span>管理员：</span>
+          <span class="admin-name">admin</span>
+          <a href="login.html" class="logout-btn">退出</a>
+        </div>
+      </header>
+
+      <div class="ls-admin-content">
+        <!-- 时间筛选 -->
+        <div class="filter-bar">
+          <button class="filter-btn active">近 7 天</button>
+          <button class="filter-btn">近 30 天</button>
+          <div style="flex:1;"></div>
+          <span style="font-size:13px; color:var(--ls-text-secondary);">数据更新至 2026-07-07</span>
+        </div>
+
+        <!-- 统计卡片行 -->
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:16px; margin-bottom:16px;">
+          <div class="ls-stat-card">
+            <div class="stat-number">14</div>
+            <div class="stat-label">总座位数</div>
+          </div>
+          <div class="ls-stat-card">
+            <div class="stat-number green">7</div>
+            <div class="stat-label">当前空闲</div>
+          </div>
+          <div class="ls-stat-card">
+            <div class="stat-number orange">5</div>
+            <div class="stat-label">今日已预约</div>
+          </div>
+          <div class="ls-stat-card">
+            <div class="stat-number">50%</div>
+            <div class="stat-label">座位利用率</div>
+          </div>
+        </div>
+
+        <!-- 图表区域 -->
+        <div style="display:flex; gap:16px; flex-wrap:wrap;">
+          <!-- 趋势图卡片 -->
+          <div class="ls-card" style="flex:2; min-width:280px;">
+            <div class="ls-card-header">📈 预约趋势</div>
+            <div class="bar-chart">
+              <div class="bar-item">
+                <div class="bar-value">3</div>
+                <div class="bar" style="height:30px;"></div>
+                <div class="bar-label">周一</div>
+              </div>
+              <div class="bar-item">
+                <div class="bar-value">5</div>
+                <div class="bar" style="height:50px;"></div>
+                <div class="bar-label">周二</div>
+              </div>
+              <div class="bar-item">
+                <div class="bar-value">7</div>
+                <div class="bar" style="height:70px;"></div>
+                <div class="bar-label">周三</div>
+              </div>
+              <div class="bar-item">
+                <div class="bar-value">8</div>
+                <div class="bar" style="height:80px; background:var(--ls-accent);"></div>
+                <div class="bar-label">周四</div>
+              </div>
+              <div class="bar-item">
+                <div class="bar-value">6</div>
+                <div class="bar" style="height:60px;"></div>
+                <div class="bar-label">周五</div>
+              </div>
+              <div class="bar-item">
+                <div class="bar-value">2</div>
+                <div class="bar" style="height:20px;"></div>
+                <div class="bar-label">周六</div>
+              </div>
+              <div class="bar-item">
+                <div class="bar-value">1</div>
+                <div class="bar" style="height:10px;"></div>
+                <div class="bar-label">周日</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 状态分布卡片 -->
+          <div class="ls-card" style="flex:1; min-width:200px;">
+            <div class="ls-card-header">🔄 座位状态分布</div>
+            <div style="display:flex; flex-direction:column; gap:12px; padding:8px 0;">
+              <div>
+                <div style="display:flex; justify-content:space-between; font-size:14px; margin-bottom:4px;">
+                  <span>空闲</span>
+                  <span style="font-weight:600; color:var(--ls-success);">7 个</span>
+                </div>
+                <div style="height:8px; background:var(--ls-bg); border-radius:4px; overflow:hidden;">
+                  <div style="height:100%; width:50%; background:var(--ls-success); border-radius:4px;"></div>
+                </div>
+              </div>
+              <div>
+                <div style="display:flex; justify-content:space-between; font-size:14px; margin-bottom:4px;">
+                  <span>已预约</span>
+                  <span style="font-weight:600; color:var(--ls-warning);">4 个</span>
+                </div>
+                <div style="height:8px; background:var(--ls-bg); border-radius:4px; overflow:hidden;">
+                  <div style="height:100%; width:29%; background:var(--ls-warning); border-radius:4px;"></div>
+                </div>
+              </div>
+              <div>
+                <div style="display:flex; justify-content:space-between; font-size:14px; margin-bottom:4px;">
+                  <span>使用中</span>
+                  <span style="font-weight:600; color:var(--ls-danger);">3 个</span>
+                </div>
+                <div style="height:8px; background:var(--ls-bg); border-radius:4px; overflow:hidden;">
+                  <div style="height:100%; width:21%; background:var(--ls-danger); border-radius:4px;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 异常/空状态演示 -->
+        <div style="margin-top:32px; padding-top:16px; border-top:1px dashed var(--ls-border);">
+          <div class="ls-device-tag">原型多状态演示</div>
+          <div class="ls-card" style="border:1px dashed var(--ls-border);">
+            <div class="ls-empty-state" style="padding:24px;">
+              <div class="icon" style="font-size:32px;">📉</div>
+              <h3 style="font-size:16px;">数据不足</h3>
+              <p style="font-size:13px;">预约数据积累后将自动展示趋势和利用率统计。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/js/libseat.js"></script>
+</body>
+</html>

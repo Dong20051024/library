@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>预约管理 - 管理后台</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/libseat.css">
+</head>
+<body>
+  <div class="ls-admin-wrapper">
+    <!-- 侧边栏 -->
+    <aside class="ls-sidebar">
+      <div class="ls-sidebar-logo">📚 后台管理</div>
+      <nav class="ls-sidebar-menu">
+        <a href="reservations.html" class="ls-sidebar-item active">
+          <span class="icon">📋</span> 预约管理
+        </a>
+        <a href="seats-management.html" class="ls-sidebar-item">
+          <span class="icon">🪑</span> 座位管理
+        </a>
+        <a href="statistics.html" class="ls-sidebar-item">
+          <span class="icon">📊</span> 统计
+        </a>
+      </nav>
+      <div style="padding:16px 20px; border-top:1px solid rgba(255,255,255,0.1);">
+        <a href="login.html" style="color:rgba(255,255,255,0.6); font-size:13px; text-decoration:none;">← 退出登录</a>
+      </div>
+    </aside>
+
+    <!-- 主内容区 -->
+    <main class="ls-admin-main">
+      <!-- 顶部栏 -->
+      <header class="ls-admin-header">
+        <div class="ls-admin-header-left">
+          <span class="page-title">预约管理</span>
+        </div>
+        <div class="ls-admin-header-right">
+          <span>管理员：</span>
+          <span class="admin-name">admin</span>
+          <a href="login.html" class="logout-btn">退出</a>
+        </div>
+      </header>
+
+      <!-- 内容 -->
+      <div class="ls-admin-content">
+        <!-- 筛选器 -->
+        <div class="filter-bar">
+          <button class="filter-btn active">全部</button>
+          <button class="filter-btn">待签到</button>
+          <button class="filter-btn">使用中</button>
+          <button class="filter-btn">已完成</button>
+          <button class="filter-btn">已取消</button>
+          <div style="flex:1;"></div>
+          <input type="text" placeholder="搜索学生名或座位号…" style="height:36px; padding:0 12px; border:1px solid var(--ls-border); border-radius:6px; font-size:13px; width:200px;">
+        </div>
+
+        <!-- 预约列表 -->
+        <div class="ls-card" style="padding:0; overflow:hidden;">
+          <div class="ls-table-wrap">
+            <table class="ls-table">
+              <thead>
+                <tr>
+                  <th style="width:120px;">学生</th>
+                  <th style="width:100px;">座位</th>
+                  <th style="width:200px;">时段</th>
+                  <th style="width:100px;">状态</th>
+                  <th style="width:160px;">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>张同学</td>
+                  <td>A-01</td>
+                  <td>2026-07-08 14:00 — 17:00</td>
+                  <td><span class="ls-badge ls-badge-pending">待签到</span></td>
+                  <td class="col-actions">
+                    <button class="ls-btn-sm ls-btn-primary" onclick="showToast('签到成功')">✅ 签到</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>李同学</td>
+                  <td>C-01</td>
+                  <td>2026-07-07 09:00 — 12:00</td>
+                  <td><span class="ls-badge ls-badge-occupied">使用中</span></td>
+                  <td class="col-actions">
+                    <button class="ls-btn-sm ls-btn-secondary" onclick="showToast('座位已释放')">释放座位</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>王同学</td>
+                  <td>B-03</td>
+                  <td>2026-07-06 14:00 — 17:00</td>
+                  <td><span class="ls-badge ls-badge-done">已完成</span></td>
+                  <td class="col-actions">
+                    <span style="font-size:12px; color:var(--ls-text-placeholder);">已完成</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>赵同学</td>
+                  <td>A-04</td>
+                  <td>2026-07-05 10:00 — 12:00</td>
+                  <td><span class="ls-badge ls-badge-cancelled">已取消</span></td>
+                  <td class="col-actions">
+                    <span style="font-size:12px; color:var(--ls-text-placeholder);">已取消</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>陈同学</td>
+                  <td>B-01</td>
+                  <td>2026-07-08 08:00 — 10:00</td>
+                  <td><span class="ls-badge ls-badge-pending">待签到</span></td>
+                  <td class="col-actions">
+                    <button class="ls-btn-sm ls-btn-primary" onclick="showToast('签到成功')">✅ 签到</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>刘同学</td>
+                  <td>C-04</td>
+                  <td>2026-07-07 13:00 — 16:00</td>
+                  <td><span class="ls-badge ls-badge-occupied">使用中</span></td>
+                  <td class="col-actions">
+                    <button class="ls-btn-sm ls-btn-secondary" onclick="showToast('座位已释放')">释放座位</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 分页 -->
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:16px; font-size:13px; color:var(--ls-text-secondary);">
+          <span>共 6 条记录</span>
+          <div style="display:flex; gap:4px;">
+            <span style="padding:6px 12px; background:var(--ls-primary); color:#fff; border-radius:4px; cursor:pointer;">1</span>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Toast -->
+  <div class="ls-toast success" id="adminToast" style="top:20px;">✅ 操作成功</div>
+
+  <script src="../assets/js/libseat.js"></script>
+  <script>
+    function showToast(msg) {
+      var t = document.getElementById('adminToast');
+      t.textContent = '✅ ' + msg;
+      t.classList.add('show');
+      setTimeout(function() { t.classList.remove('show'); }, 2000);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>座位详情 - 图书馆座位预约</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/libseat.css">
+</head>
+<body>
+  <!-- 顶部导航 -->
+  <nav class="ls-topnav">
+    <a href="../index.html" class="ls-topnav-brand">📚 图书馆座位预约</a>
+    <div class="ls-topnav-right">
+      <div class="ls-account-switcher" onclick="toggleDropdown(event)">
+        <span class="avatar">1</span>
+        <span>学生1</span>
+        <span style="font-size:10px;">▼</span>
+        <div class="ls-account-dropdown" id="accountDropdown">
+          <a href="?user=student1" class="active">👤 学生1</a>
+          <a href="?user=student2">👤 学生2</a>
+          <a href="?user=student3">👤 学生3</a>
+          <a href="?user=student4">👤 学生4</a>
+          <a href="?user=student5">👤 学生5</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="ls-phone-frame">
+    <div class="ls-page">
+      <!-- 返回按钮 -->
+      <a href="seats.html" style="display:inline-flex; align-items:center; gap:4px; font-size:14px; color:var(--ls-text-secondary); text-decoration:none; margin-bottom:12px;">
+        ← 返回座位列表
+      </a>
+
+      <!-- 座位号 + 状态 -->
+      <div style="text-align:center; padding:16px 0;">
+        <div style="font-size:28px; font-weight:700; color:var(--ls-text-primary);">A-01</div>
+        <div style="margin-top:8px;">
+          <span class="ls-badge ls-badge-free">空闲</span>
+        </div>
+      </div>
+
+      <!-- 信息卡片 -->
+      <div class="ls-card" style="margin-top:8px;">
+        <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--ls-border);">
+          <span style="font-size:14px; color:var(--ls-text-secondary);">楼层</span>
+          <span style="font-size:15px; font-weight:500;">3楼</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--ls-border);">
+          <span style="font-size:14px; color:var(--ls-text-secondary);">区域</span>
+          <span style="font-size:15px; font-weight:500;">A区（靠窗）</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--ls-border);">
+          <span style="font-size:14px; color:var(--ls-text-secondary);">座位编号</span>
+          <span style="font-size:15px; font-weight:500;">A-01</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; padding:8px 0;">
+          <span style="font-size:14px; color:var(--ls-text-secondary);">设施</span>
+          <div style="display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end;">
+            <span class="ls-badge ls-badge-info" style="font-size:12px;">🔌 有插座</span>
+            <span class="ls-badge ls-badge-info" style="font-size:12px;">🪟 靠窗</span>
+            <span class="ls-badge ls-badge-info" style="font-size:12px;">💡 台灯</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 预约按钮 -->
+      <div style="margin-top:24px;">
+        <a href="reservation-create.html" class="ls-btn ls-btn-primary ls-btn-block ls-btn-lg" style="text-decoration:none; justify-content:center;">
+          预约此座位
+        </a>
+      </div>
+
+      <!-- 异常状态演示：座位不存在 -->
+      <div style="margin-top:32px; padding-top:16px; border-top:1px dashed var(--ls-border);">
+        <div class="ls-device-tag">原型多状态演示</div>
+        <div class="ls-empty-state" style="padding:24px 16px;">
+          <div class="icon" style="font-size:36px;">🔍</div>
+          <h3 style="font-size:16px;">座位信息不存在</h3>
+          <p style="font-size:13px;">该座位可能已被删除或编号有误，请返回列表重新选择。</p>
+          <a href="seats.html" class="ls-btn-sm ls-btn-secondary" style="text-decoration:none;">返回座位列表</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/js/libseat.js"></script>
+</body>
+</html>

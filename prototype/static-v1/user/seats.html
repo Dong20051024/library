@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>座位列表 - 图书馆座位预约</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/libseat.css">
+</head>
+<body>
+  <!-- 顶部导航 -->
+  <nav class="ls-topnav">
+    <a href="../index.html" class="ls-topnav-brand">📚 图书馆座位预约</a>
+    <div class="ls-topnav-right">
+      <div class="ls-account-switcher" onclick="toggleDropdown(event)">
+        <span class="avatar">1</span>
+        <span>学生1</span>
+        <span style="font-size:10px;">▼</span>
+        <div class="ls-account-dropdown" id="accountDropdown">
+          <a href="?user=student1" class="active">👤 学生1</a>
+          <a href="?user=student2">👤 学生2</a>
+          <a href="?user=student3">👤 学生3</a>
+          <a href="?user=student4">👤 学生4</a>
+          <a href="?user=student5">👤 学生5</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="ls-phone-frame">
+    <div class="ls-page">
+      <h1 class="ls-page-title">选择座位</h1>
+      <p class="ls-page-subtitle">绿色为空闲座位，点击即可预约</p>
+
+      <!-- 楼层筛选 -->
+      <div style="display:flex; gap:8px; margin-bottom:16px; overflow-x:auto; padding-bottom:4px;">
+        <button class="ls-btn-sm" style="background:var(--ls-primary); color:#fff; border:none; flex-shrink:0;">全部楼层</button>
+        <button class="ls-btn-sm" style="background:var(--ls-white); color:var(--ls-text-secondary); border:1px solid var(--ls-border); flex-shrink:0;">1楼</button>
+        <button class="ls-btn-sm" style="background:var(--ls-white); color:var(--ls-text-secondary); border:1px solid var(--ls-border); flex-shrink:0;">2楼</button>
+        <button class="ls-btn-sm" style="background:var(--ls-white); color:var(--ls-text-secondary); border:1px solid var(--ls-border); flex-shrink:0;">3楼</button>
+        <button class="ls-btn-sm" style="background:var(--ls-white); color:var(--ls-text-secondary); border:1px solid var(--ls-border); flex-shrink:0;">4楼</button>
+      </div>
+
+      <!-- 图例 -->
+      <div style="display:flex; gap:16px; margin-bottom:16px; font-size:12px; color:var(--ls-text-secondary);">
+        <span><span style="display:inline-block; width:10px; height:10px; border-radius:2px; background:var(--ls-success); margin-right:4px;"></span> 空闲</span>
+        <span><span style="display:inline-block; width:10px; height:10px; border-radius:2px; background:var(--ls-warning); margin-right:4px;"></span> 已预约</span>
+        <span><span style="display:inline-block; width:10px; height:10px; border-radius:2px; background:var(--ls-danger); margin-right:4px;"></span> 使用中</span>
+      </div>
+
+      <!-- 座位网格 -->
+      <div class="ls-seat-grid">
+        <!-- 空闲 -->
+        <a href="seat-detail.html" class="ls-seat-card clickable status-free" style="text-decoration:none;color:inherit;">
+          <div class="seat-number">A-01</div>
+          <div class="seat-floor">3楼 A区</div>
+          <div class="seat-status-bar"></div>
+        </a>
+        <!-- 已预约 -->
+        <div class="ls-seat-card status-booked">
+          <div class="seat-number">A-02</div>
+          <div class="seat-floor">3楼 A区</div>
+          <div class="seat-status-bar"></div>
+        </div>
+        <!-- 使用中 -->
+        <div class="ls-seat-card status-occupied">
+          <div class="seat-number">A-03</div>
+          <div class="seat-floor">3楼 A区</div>
+          <div class="seat-status-bar"></div>
+        </div>
+        <!-- 空闲 -->
+        <a href="seat-detail.html" class="ls-seat-card clickable status-free" style="text-decoration:none;color:inherit;">
+          <div class="seat-number">A-04</div>
+          <div class="seat-floor">3楼 A区</div>
+          <div class="seat-status-bar"></div>
+        </a>
+        <!-- 空闲 -->
+        <a href="seat-detail.html" class="ls-seat-card clickable status-free" style="text-decoration:none;color:inherit;">
+          <div class="seat-number">A-05</div>
+          <div class="seat-floor">3楼 A区</div>
+          <div class="seat-status-bar"></div>
+        </a>
+        <!-- 已预约 -->
+        <div class="ls-seat-card status-booked">
+          <div class="seat-number">B-01</div>
+          <div class="seat-floor">3楼 B区</div>
+          <div class="seat-status-bar"></div>
+        </div>
+        <!-- 空闲 -->
+        <a href="seat-detail.html" class="ls-seat-card clickable status-free" style="text-decoration:none;color:inherit;">
+          <div class="seat-number">B-02</div>
+          <div class="seat-floor">3楼 B区</div>
+          <div class="seat-status-bar"></div>
+        </a>
+        <!-- 空闲 -->
+        <a href="seat-detail.html" class="ls-seat-card clickable status-free" style="text-decoration:none;color:inherit;">
+          <div class="seat-number">B-03</div>
+          <div class="seat-floor">3楼 B区</div>
+          <div class="seat-status-bar"></div>
+        </a>
+        <!-- 使用中 -->
+        <div class="ls-seat-card status-occupied">
+          <div class="seat-number">B-04</div>
+          <div class="seat-floor">3楼 B区</div>
+          <div class="seat-status-bar"></div>
+        </div>
+        <!-- 空闲 -->
+        <a href="seat-detail.html" class="ls-seat-card clickable status-free" style="text-decoration:none;color:inherit;">
+          <div class="seat-number">B-05</div>
+          <div class="seat-floor">3楼 B区</div>
+          <div class="seat-status-bar"></div>
+        </a>
+        <!-- 空闲 -->
+        <a href="seat-detail.html" class="ls-seat-card clickable status-free" style="text-decoration:none;color:inherit;">
+          <div class="seat-number">C-01</div>
+          <div class="seat-floor">2楼 自习区</div>
+          <div class="seat-status-bar"></div>
+        </a>
+        <!-- 已预约 -->
+        <div class="ls-seat-card status-booked">
+          <div class="seat-number">C-02</div>
+          <div class="seat-floor">2楼 自习区</div>
+          <div class="seat-status-bar"></div>
+        </div>
+        <!-- 使用中 -->
+        <div class="ls-seat-card status-occupied">
+          <div class="seat-number">C-03</div>
+          <div class="seat-floor">2楼 自习区</div>
+          <div class="seat-status-bar"></div>
+        </div>
+        <!-- 空闲 -->
+        <a href="seat-detail.html" class="ls-seat-card clickable status-free" style="text-decoration:none;color:inherit;">
+          <div class="seat-number">C-04</div>
+          <div class="seat-floor">2楼 自习区</div>
+          <div class="seat-status-bar"></div>
+        </a>
+        <!-- 空闲 -->
+        <a href="seat-detail.html" class="ls-seat-card clickable status-free" style="text-decoration:none;color:inherit;">
+          <div class="seat-number">C-05</div>
+          <div class="seat-floor">2楼 自习区</div>
+          <div class="seat-status-bar"></div>
+        </a>
+      </div>
+
+      <!-- 底部返回 -->
+      <div style="text-align:center; margin-top:20px;">
+        <a href="../index.html" class="ls-btn-text">← 返回首页</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/js/libseat.js"></script>
+</body>
+</html>
