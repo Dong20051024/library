@@ -258,8 +258,11 @@ feat(seat): 实现座位列表页楼层筛选
 ```bash
 # 1. 创建 .gitignore
 # 2. git init
-# 3. git add .gitignore
+# 3. git add . && git commit -m "chore(init): 初始化项目仓库"
 # 4. git remote add origin https://github.com/Dong20051024/library.git
+# 5. git branch -M main
+# 6. git push -u origin main
+# 当前状态：仓库已推送至 GitHub main 分支，包含全部文档和原型
 ```
 
 ### 7.2 首次推送
