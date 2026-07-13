@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "LibrarySeatReservation.Web": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:62259;http://localhost:62260"
+    }
+  }
+}

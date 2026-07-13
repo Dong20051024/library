@@ -1,0 +1,58 @@
+@model ListViewModel
+@{
+    ViewData["Title"] = "座位列表";
+}
+
+<h2 class="mb-4">座位列表</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+<form method="get" class="row g-3 mb-4">
+    <div class="col-auto">
+        <select name="floor" class="form-select" onchange="this.form.submit()">
+            <option value="">全部楼层</option>
+            @foreach (var floor in Model.Floors)
+            {
+                <option value="@floor" selected="@(Model.CurrentFloor == floor)">@floor</option>
+            }
+        </select>
+    </div>
+</form>
+
+@if (!Model.Seats.Any())
+{
+    <div class="text-center py-5">
+        <p class="text-muted">暂无可用座位</p>
+    </div>
+}
+else
+{
+    <div class="row g-3">
+        @foreach (var seat in Model.Seats)
+        {
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <a asp-controller="Seat" asp-action="Detail" asp-route-id="@seat.Id" class="text-decoration-none">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">@seat.SeatNumber</h5>
+                            <p class="card-text text-muted small">@seat.Floor · @seat.Area</p>
+                            <span class="badge @seat.StatusCssClass">@seat.StatusText</span>
+                            @if (!string.IsNullOrEmpty(seat.Facilities))
+                            {
+                                <p class="card-text text-muted small mt-2">
+                                    @foreach (var fac in seat.Facilities.Split(','))
+                                    {
+                                        <span class="badge bg-light text-dark me-1">@fac</span>
+                                    }
+                                </p>
+                            }
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+}

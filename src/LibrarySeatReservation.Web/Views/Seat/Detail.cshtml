@@ -1,0 +1,58 @@
+@model DetailViewModel
+@{
+    ViewData["Title"] = "座位详情 - " + Model.SeatNumber;
+}
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h3 class="card-title">@Model.SeatNumber</h3>
+        <table class="table table-borderless mb-3">
+            <tr>
+                <td class="text-muted" style="width:100px;">楼层</td>
+                <td>@Model.Floor</td>
+            </tr>
+            <tr>
+                <td class="text-muted">区域</td>
+                <td>@Model.Area</td>
+            </tr>
+            <tr>
+                <td class="text-muted">状态</td>
+                <td><span class="badge @Model.StatusCssClass">@Model.StatusText</span></td>
+            </tr>
+            @if (!string.IsNullOrEmpty(Model.Facilities))
+            {
+                <tr>
+                    <td class="text-muted">设施</td>
+                    <td>
+                        @foreach (var fac in Model.Facilities.Split(','))
+                        {
+                            <span class="badge bg-light text-dark me-1">@fac</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+
+        @if (Model.IsAvailable)
+        {
+            <a asp-controller="Reservation" asp-action="Create" asp-route-seatId="@Model.Id" class="btn btn-primary">
+                预约此座位
+            </a>
+        }
+        else if (!Model.IsActive)
+        {
+            <p class="text-muted">此座位已禁用</p>
+        }
+        else
+        {
+            <p class="text-muted">该座位当前无法预约</p>
+        }
+
+        <a asp-controller="Seat" asp-action="List" class="btn btn-outline-secondary ms-2">返回列表</a>
+    </div>
+</div>

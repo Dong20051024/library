@@ -1,0 +1,48 @@
+@model MineViewModel
+@{
+    ViewData["Title"] = "我的预约";
+}
+
+<h2 class="mb-4">我的预约</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+@if (!Model.Items.Any())
+{
+    <div class="text-center py-5">
+        <p class="text-muted">暂无预约记录</p>
+        <a asp-controller="Seat" asp-action="List" class="btn btn-primary">去选座</a>
+    </div>
+}
+else
+{
+    <div class="list-group">
+        @foreach (var item in Model.Items)
+        {
+            <div class="list-group-item">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="mb-1">@item.SeatNumber</h5>
+                        <p class="mb-1 text-muted small">@item.Floor · @item.Area</p>
+                        <p class="mb-1 text-muted small">
+                            @item.StartTime.ToString("MM/dd HH:mm") — @item.EndTime.ToString("HH:mm")
+                        </p>
+                    </div>
+                    <div class="text-end">
+                        <span class="badge @item.StatusCssClass d-block mb-2">@item.StatusText</span>
+                        @if (item.CanCancel)
+                        {
+                            <form asp-controller="Reservation" asp-action="Cancel" asp-route-id="@item.Id" method="post"
+                                  onsubmit="return confirm('确定要取消此预约吗？');">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">取消预约</button>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

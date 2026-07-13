@@ -2,7 +2,7 @@
 
 轻量化的图书馆座位预约 Web 系统。学生在线查看座位状态、预约座位、取消预约；图书馆管理员后台管理座位和预约数据，确认签到和释放座位。
 
-> **当前阶段**：Sprint 0 — 开发准备与环境搭建
+> **当前阶段**：Sprint 1 — P0 链路闭环 ✅ **已完成**（Sprint 0 前置已完成）
 > **技术栈**：ASP.NET Core MVC (.NET 8) + Razor + SQL Server LocalDB + EF Core + Bootstrap 5
 
 ---
@@ -38,68 +38,55 @@
 |----|------|------|
 | 运行时 | .NET SDK | 8.0 |
 | Web 框架 | ASP.NET Core MVC | 8.0 |
-| ORM | Entity Framework Core | 8.0 |
+| ORM | Entity Framework Core | 8.0.11 |
 | 数据库 | SQL Server LocalDB | 随 VS2022 |
-| 前端框架 | Bootstrap | 5.x |
+| 前端框架 | Bootstrap | 5.3.3 |
 | 自定义样式 | libseat.css | — |
 
-### 后续计划 / 待生成
+### 后续计划 / 待实现
 
-| 项目 | 说明 |
-|------|------|
-| ASP.NET Core MVC 项目 `LibrarySeatSystem.Web.csproj` | Sprint 0 创建 |
-| 解决方案文件 `LibrarySeatSystem.sln` | Sprint 0 创建 |
-| EF Core 迁移（InitialCreate） | Sprint 0 生成 |
-| 种子数据 | Sprint 0 初始化 |
+| 项目 | 说明 | 计划 Sprint | 当前状态 |
+|------|------|-------------|----------|
+| 管理员登录 + 签到/释放 | P0 管理端核心功能 | Sprint 1 | ✅ 已完成 |
+| 座位列表 + 预约提交 | P0 用户端核心功能 | Sprint 1 | ✅ 已完成 |
+| 用户端布局 + 管理端布局 | 导航栏、账号切换、侧边栏 | Sprint 1 | ✅ 已完成 |
+| 首页 + 详情 + 我的预约 + 取消 | P1 用户端完善 | Sprint 2 | ⬜ 待开发 |
+| 座位管理增删改 | P1 管理端完善 | Sprint 2 | ⬜ 待开发 |
+| 统计页 | P2 收尾 | Sprint 3 | ⬜ 待开发 |
+| 错误提示 + 响应式 | 打磨 | Sprint 3 | ⬜ 待开发 |
+| 全链路回归 + 文档最终化 | 交付 | Sprint 4 | ⬜ 待开发 |
 
 ---
 
 ## 目录结构
 
-### 当前已存在（本阶段产物）
-
 ```
-LibrarySeatSystem/
-├── .gitignore                     # Git 忽略规则
-├── README.md                      # 本文件 — 项目说明与开发指引（持续维护）
+LibrarySeatReservation/
+├── LibrarySeatReservation.slnx          # 解决方案文件
+├── .gitignore
+├── README.md                            # 本文件
 │
-├── docs/                          # 项目文档目录
-│   ├── 01-项目立项单.md            # 立项文档
-│   ├── 02-需求分析与MVP确认.md      # 需求分析与 MVP 边界
-│   ├── 03-PRD-Lite.md             # PRD 精简版
-│   ├── 04-页面树与业务流程.md       # 页面结构与业务链路定义
-│   ├── 05-页面卡与UI规范.md         # 页面卡片定义与 UI 设计系统
-│   ├── 06-静态原型与原型评审.md      # 静态原型说明
-│   ├── 07-系统设计说明.md           # 系统分层架构设计
-│   ├── 08-数据库设计.md            # 数据库建模与表结构
-│   ├── 09-关键链路详细设计.md       # 核心业务链路逐层展开
-│   ├── 10-开发准备与Sprint0.md      # 开发环境准备与 Sprint 0 规划 ← 本阶段产物
-│   └── 项目任务板与迭代记录.md       # 任务板与迭代跟踪 ← 本阶段产物
+├── docs/                                # 项目文档目录
+│   ├── 01-项目立项单.md
+│   ├── ...（01~11 前置文档）
+│   ├── 12-开发起步与骨架记录.md          # ← Sprint 0 产物
+│   ├── 13-用户端主链路开发记录.md        # ← Sprint 1a 产物
+│   └── 项目任务板与迭代记录.md
 │
-├── prototype/                     # 静态原型（HTML 版本）
-│   ├── static-v1/                 # 9 页高保真原型
-│   │   ├── index.html             # 用户首页
-│   │   ├── user/                  # 用户端页面
-│   │   ├── admin/                 # 管理端页面
-│   │   └── assets/                # CSS + JS 资源
-│   └── review-1/                  # 原型评审清单
-│       └── 原型评审清单.md
-```
-
-### 后续计划 / 待生成
-
-```
-src/
-└── LibrarySeatSystem.Web/         # ASP.NET Core MVC 项目（Sprint 0 创建）
-    ├── Controllers/               # Controller 层
-    ├── Models/                    # Entity / ViewModel / Enum
-    ├── Services/                  # Service 层（业务逻辑）
-    ├── Data/                      # DbContext + Fluent API 配置
-    ├── Views/                     # Razor 视图（用户端）
-    ├── Areas/Admin/Views/         # Razor 视图（管理端）
-    ├── wwwroot/                   # 静态资源（CSS/JS/images）
-    ├── Program.cs                 # 启动配置
-    └── appsettings.json           # 数据库连接串
+├── prototype/                           # 静态原型
+│   └── static-v1/
+│
+└── src/
+    └── LibrarySeatReservation.Web/      # ASP.NET Core MVC 项目
+        ├── Controllers/                 # 6 个 Controller（含 2 个桩）
+        ├── Models/                      # Entity / ViewModel / Enum / SeedData / Filter
+        ├── Services/                    # 4 个 Service 接口 + 实现
+        ├── Data/                        # AppDbContext + Fluent API 配置
+        ├── Views/                       # Razor 视图（用户端 7 个）
+        ├── Areas/Admin/Views/           # Razor 视图（管理端 4 个）
+        ├── wwwroot/                     # 静态资源
+        ├── Program.cs                   # 启动配置 + DI + 种子数据初始化
+        └── appsettings.json             # LocalDB 连接串
 ```
 
 ---
@@ -131,26 +118,20 @@ dotnet ef --version
 
 ## 快速开始
 
-> ⚠️ 以下步骤涉及 Sprint 0 待创建文件，当前为"操作指引"阶段，尚未生成 .sln 和 .csproj。
-
 ```bash
-# 1. 克隆仓库
-git clone https://github.com/Dong20051024/library.git
-cd library
+# 1. 进入项目目录
+cd src/LibrarySeatReservation.Web
 
-# 2. 进入项目目录
-cd src/LibrarySeatSystem.Web
-
-# 3. 还原依赖
+# 2. 还原依赖
 dotnet restore
 
-# 4. 创建数据库（执行 EF Core 迁移）
+# 3. 创建数据库（执行 EF Core 迁移，种子数据自动插入）
 dotnet ef database update
 
-# 5. 运行项目
+# 4. 运行项目
 dotnet run
 
-# 6. 浏览器访问
+# 5. 浏览器访问
 # 用户端：http://localhost:5000/
 # 管理端：http://localhost:5000/Admin/Login
 ```
@@ -161,22 +142,60 @@ dotnet run
 
 > 本部分会随开发进度持续更新。
 
-### Sprint 0 — 开发准备（当前）
+### Sprint 0 — 开发准备 ✅ 已完成
 
 - [x] 项目文档体系建立（01~09）
 - [x] 静态原型完成（9 页 + 设计系统 + 评审清单）
 - [x] 系统设计与数据库设计完成
 - [x] 关键链路详细设计完成
 - [x] Git 仓库初始化
-- [ ] 创建 .sln 和 .csproj（进行中）
-- [ ] 首次 `dotnet build` 通过
-- [ ] 首次 `dotnet run` 成功
-- [ ] EF Core 迁移建库
-- [ ] 种子数据初始化
+- [x] 创建 .sln 和 .csproj
+- [x] Entity + Enum + Fluent API 配置完成
+- [x] Service 接口与实现骨架
+- [x] Controller + View 全部就位（含 P1/P2 桩）
+- [x] AdminAuthorize 过滤器
+- [x] 种子数据（14 座位 + 6 预约 + 1 管理员）
+- [x] 首次 `dotnet build` 通过（0 error, 0 warning）
+- [x] EF Core 迁移建库
+- [x] LocalDB 建表成功，种子数据已验证
 
-### Sprint 1~4 — 业务功能开发（计划中）
+### Sprint 1 — P0 链路闭环 ✅ 已完成
 
-详细计划见 [docs/10-开发准备与Sprint0.md](./docs/10-开发准备与Sprint0.md)。
+- [x] 用户端布局（导航栏 + 账号切换）
+- [x] 管理端布局（侧边栏 + 顶部栏 + 当前菜单高亮）
+- [x] 座位列表页（楼层筛选、状态颜色区分）
+- [x] 座位详情页（设施标签、预约按钮权限控制）
+- [x] 预约提交页（时段选择、冲突校验、GSET/POST）
+- [x] 我的预约页（状态标签、取消操作）
+- [x] 管理员登录/登出（Session 校验 + AdminAuthorize 过滤器）
+- [x] 预约管理页（状态筛选、确认签到、释放座位）
+- [x] 时段冲突校验 Service（事务 + 重叠 SQL 算法）
+- [x] 设计系统对齐（CSS 按 docs/05 色彩规范实现）
+- [x] `dotnet build` 0 error, 0 warning
+- [x] 全链路页面渲染验证通过
+
+### Sprint 2 — P1 功能完善（计划中）
+
+- [ ] 用户首页（功能入口卡片、体验账号快速切换）
+- [ ] 座位详情页完整交互（跳转修复、返回优化）
+- [ ] 我的预约页空状态引导加强
+- [ ] 取消预约确认弹窗
+- [ ] 座位管理增删改
+
+### Sprint 3 — P2 收尾打磨（计划中）
+
+- [ ] 统计页（趋势图、利用率）
+- [ ] 统一错误提示检查
+- [ ] 响应式适配
+- [ ] 原型对照检查
+
+### Sprint 4 — 最终交付（计划中）
+
+- [ ] 全链路回归测试
+- [ ] 文档最终化
+- [ ] Git Tag v1.0.0
+
+详细计划见 [docs/项目任务板与迭代记录.md](./docs/项目任务板与迭代记录.md)。
 
 ---
 
@@ -184,15 +203,34 @@ dotnet run
 
 ### 学生端
 
-| 账号 | 说明 |
-|------|------|
-| 学生1~学生5 | 5 个体验账号，在导航栏下拉切换 |
+| 账号 | 当前预约情况 | 说明 |
+|------|-------------|------|
+| 学生1 | A-01 使用中、A-04 已取消（历史） | 体验默认账号，有活跃预约 |
+| 学生2 | A-02 待签到 | 有可取消的预约 |
+| 学生3 | 无活跃预约（有已完成历史） | 可测试空状态 |
+| 学生4 | 无活跃预约 | 可测试新预约 |
+| 学生5 | 无活跃预约（有已取消历史） | 可测试空状态 |
 
 ### 管理端
 
 | 用户名 | 密码 | 说明 |
 |--------|------|------|
 | admin | 123456 | 管理员账号 |
+
+## 建议演示路径
+
+```
+1. 打开 http://localhost:5000/           → 首页，查看当前账号（学生1）
+2. 切换到学生4（导航栏下拉）                  → 空账号开始
+3. 点击"座位列表"                           → 浏览 14 个座位，用楼层筛选
+4. 点击空闲座位 A-03（带"靠窗"标签）          → 查看详情，看到"预约此座位"按钮
+5. 点击"预约此座位"                          → 预约表单，选择时段
+6. 提交预约                                 → 跳转到"我的预约"
+7. "我的预约"看到新预约记录（状态：待签到）      → 写库成功
+8. 打开 /Admin/Login（或另开窗口）            → 管理员登录（admin/123456）
+9. 在预约管理页看到新预约，点击"签到"           → 状态变为"使用中"
+10. 点击"释放"                              → 状态变为"已完成"
+```
 
 ---
 
@@ -201,20 +239,20 @@ dotnet run
 本项目使用 EF Core Code-First + 迁移管理数据库：
 
 ```bash
-# 首次创建迁移
+# 首次创建迁移（已由 Sprint 0 生成）
 dotnet ef migrations add InitialCreate
 
-# 更新数据库
+# 更新数据库（如数据库已存在则跳过）
 dotnet ef database update
 ```
 
-种子数据随 Migration 自动插入，包含：
+种子数据在首次启动时通过 `Program.cs` 自动初始化（`SeedData.Initialize` 方法），包含：
 
-- 14 个座位（2 个楼层、3 个区域）
-- 6 条预约记录（覆盖全部 4 种状态）
-- 1 个管理员账号
+- **14 个座位**：2 个楼层（3楼 / 5楼）、3 个区域（A区 / B区 / C区）
+- **6 条预约记录**：覆盖全部 4 种状态（待签到 / 使用中 / 已完成 / 已取消）
+- **1 个管理员账号**：admin / 123456
 
-详细种子数据定义参考 [docs/06-静态原型与原型评审.md](./docs/06-静态原型与原型评审.md) 中的原型数据说明（14 个座位、2 个楼层、3 个区域），以及 [docs/10-开发准备与Sprint0.md](./docs/10-开发准备与Sprint0.md) §4.2 T00-08 的种子数据任务卡。
+种子数据仅首次运行插入，再次启动时自动跳过（`if (context.Seats.Any()) return;`）。
 
 ---
 
@@ -247,6 +285,9 @@ dotnet ef database update
 | [08-数据库设计](./docs/08-数据库设计.md) | 3 张数据表 DDL、索引、种子数据 | ✅ 完成 |
 | [09-关键链路详细设计](./docs/09-关键链路详细设计.md) | Controller/Service/DataAccess 逐层代码 | ✅ 完成 |
 | [10-开发准备与Sprint0](./docs/10-开发准备与Sprint0.md) | 开发环境搭建指引与 Sprint 0 规划 | ✅ 完成 |
+| [11-开发前一致性总审计](./docs/11-开发前一致性总审计.md) | 5 维 70 项跨文档一致性审计 | ✅ 完成 |
+| [12-开发起步与骨架记录](./docs/12-开发起步与骨架记录.md) | Sprint 0 施工记录与技术决策 | ✅ 完成 |
+| [13-用户端主链路开发记录](./docs/13-用户端主链路开发记录.md) | Sprint 1a 用户端主链路施工记录 | ✅ 完成 |
 | [项目任务板与迭代记录](./docs/项目任务板与迭代记录.md) | 任务追踪、Sprint 规划、迭代记录 | ✅ 完成 |
 
 ---

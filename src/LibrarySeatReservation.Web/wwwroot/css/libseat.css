@@ -1,0 +1,296 @@
+/* === 图书馆座位预约系统 自定义样式 === */
+/* 遵循 docs/05-页面卡与UI规范.md 设计系统 */
+
+/* ===== 色彩系统 ===== */
+/* 主色：学院蓝 #2B5F8A */
+
+/* ===== 导航栏（用户端） ===== */
+.navbar-ls {
+    background-color: #2B5F8A !important;  /* 学院蓝 */
+}
+.navbar-ls .navbar-brand,
+.navbar-ls .nav-link {
+    color: #ffffff !important;
+}
+.navbar-ls .navbar-brand {
+    font-size: 16px;
+    font-weight: 500;
+}
+.navbar-ls .nav-link {
+    font-size: 14px;
+}
+.navbar-ls .navbar-toggler {
+    border-color: rgba(255,255,255,0.3);
+}
+.navbar-ls .dropdown-menu {
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+.navbar-ls .dropdown-item:hover {
+    background-color: #E8F0F8;
+}
+
+/* ===== 管理端导航栏 ===== */
+.navbar-admin {
+    background-color: #1A3D5C !important;
+}
+
+/* ===== 管理端侧边栏 ===== */
+.admin-sidebar {
+    min-height: calc(100vh - 56px);
+    background-color: #1A3D5C !important;  /* 深蓝 */
+    padding-top: 0;
+}
+.admin-sidebar .nav-link {
+    color: rgba(255,255,255,0.8) !important;
+    padding: 12px 20px;
+    font-size: 15px;
+    font-weight: 400;
+    border-left: 3px solid transparent;
+    transition: background-color 0.15s ease;
+}
+.admin-sidebar .nav-link:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: #ffffff !important;
+}
+.admin-sidebar .nav-link.active {
+    background-color: #2B5F8A !important;
+    color: #ffffff !important;
+    border-left: 3px solid #ffffff;
+}
+.admin-sidebar .sidebar-logo {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+/* ===== 座位状态徽章 ===== */
+/* 设计规范：浅色背景 + 深色文字，更易阅读 */
+.badge-ls-free,
+.ls-badge-free {
+    background-color: #E8F8E8 !important;
+    color: #27AE60 !important;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 4px;
+}
+.badge-ls-reserved,
+.ls-badge-reserved {
+    background-color: #FEF3E2 !important;
+    color: #E67E22 !important;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 4px;
+}
+.badge-ls-occupied,
+.ls-badge-occupied {
+    background-color: #FBEAE5 !important;
+    color: #D35400 !important;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 4px;
+}
+.badge-ls-pending,
+.ls-badge-pending {
+    background-color: #FEF3E2 !important;
+    color: #E67E22 !important;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 4px;
+}
+.badge-ls-completed,
+.ls-badge-completed {
+    background-color: #F3F4F6 !important;
+    color: #6B7280 !important;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 4px;
+}
+.badge-ls-cancelled,
+.ls-badge-cancelled {
+    background-color: #F3F4F6 !important;
+    color: #9CA3AF !important;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 4px;
+    text-decoration: line-through;
+}
+.ls-badge-unknown {
+    background-color: #F3F4F6 !important;
+    color: #6B7280 !important;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 4px;
+}
+
+/* ===== 卡片 ===== */
+.card-ls {
+    border-radius: 12px;
+    background: #FFFFFF;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.card-ls:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12) !important;
+}
+
+/* ===== 按钮 ===== */
+.btn-ls-primary {
+    background-color: #2B5F8A !important;
+    border: none;
+    color: #ffffff;
+    height: 44px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 0 24px;
+}
+.btn-ls-primary:hover {
+    background-color: #1A3D5C !important;
+}
+.btn-ls-primary:disabled {
+    background-color: #9CA3AF !important;
+}
+
+.btn-ls-secondary {
+    background-color: transparent;
+    border: 1px solid #2B5F8A;
+    color: #2B5F8A;
+    height: 36px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0 16px;
+}
+.btn-ls-secondary:hover {
+    background-color: #E8F0F8;
+}
+
+.btn-ls-danger {
+    background-color: #D35400;
+    border: none;
+    color: #ffffff;
+    height: 36px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0 16px;
+}
+.btn-ls-danger:hover {
+    background-color: #A04000 !important;
+}
+
+/* ===== 输入框 ===== */
+.form-control-ls {
+    height: 44px;
+    border-radius: 8px;
+    border: 1px solid #D1D5DB;
+    padding: 0 16px;
+    font-size: 16px;
+}
+.form-control-ls:focus {
+    border-color: #2B5F8A;
+    box-shadow: 0 0 0 2px rgba(43,95,138,0.15);
+}
+.form-control-ls.error {
+    border-color: #D35400;
+}
+
+/* ===== 表格（管理端） ===== */
+.table-ls thead {
+    background-color: #E8F0F8;
+}
+.table-ls thead th {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1A1A2E;
+    height: 48px;
+    padding: 0 16px;
+    border-bottom: none;
+}
+.table-ls tbody tr {
+    height: 52px;
+}
+.table-ls tbody tr:nth-child(even) {
+    background-color: #F5F7FA;
+}
+.table-ls tbody tr:hover {
+    background-color: #E8F0F8;
+}
+.table-ls td {
+    padding: 0 16px;
+    font-size: 14px;
+    color: #1A1A2E;
+    border-bottom: 1px solid #E5E7EB;
+}
+
+/* ===== 弹窗确认 ===== */
+.modal-ls .modal-content {
+    border-radius: 12px;
+    padding: 24px;
+}
+.modal-ls .modal-title {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* ===== 排版 ===== */
+.ls-h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1A1A2E;
+}
+.ls-h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1A1A2E;
+}
+.ls-h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1A1A2E;
+}
+.ls-text-muted {
+    color: #6B7280 !important;
+}
+
+/* ===== Footer ===== */
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    margin-bottom: 60px;
+}
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    line-height: 40px;
+    background-color: #F5F7FA;
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+    .navbar-ls .navbar-brand {
+        font-size: 14px;
+    }
+}

@@ -1,0 +1,56 @@
+@model IndexViewModel
+@{
+    ViewData["Title"] = "首页";
+}
+
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="p-4 bg-light rounded-3">
+            <h2>欢迎，@Model.StudentName</h2>
+            <p class="text-muted">欢迎使用图书馆座位预约系统，您可以选择一个座位开始学习。</p>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-6">
+        <a asp-controller="Seat" asp-action="List" class="text-decoration-none">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center py-5">
+                    <h3 class="card-title">📖 座位列表</h3>
+                    <p class="card-text text-muted">查看各楼层座位状态，选择空闲座位预约</p>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-6">
+        <a asp-controller="Reservation" asp-action="Mine" class="text-decoration-none">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center py-5">
+                    <h3 class="card-title">📋 我的预约</h3>
+                    <p class="card-text text-muted">查看我的预约记录，取消待签到的预约</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+@if (Model.Accounts.Length > 0)
+{
+    <div class="mt-4">
+        <h5>体验账号</h5>
+        <div class="row g-2">
+            @foreach (var account in Model.Accounts)
+            {
+                <div class="col-auto">
+                    <form asp-controller="Home" asp-action="SwitchAccount" method="post" style="display:inline;">
+                        <input type="hidden" name="name" value="@account" />
+                        <button type="submit" class="btn @(account == Model.StudentName ? "btn-primary" : "btn-outline-secondary")">
+                            @account
+                        </button>
+                    </form>
+                </div>
+            }
+        </div>
+    </div>
+}

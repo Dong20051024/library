@@ -1,0 +1,46 @@
+@model CreateViewModel
+@{
+    ViewData["Title"] = "预约座位";
+}
+
+<h2 class="mb-4">预约座位</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <h5>@Model.SeatNumber</h5>
+        <p class="text-muted">@Model.Floor · @Model.Area</p>
+    </div>
+</div>
+
+<form method="post" asp-action="Create">
+    <input type="hidden" asp-for="SeatId" />
+    <input type="hidden" asp-for="SeatNumber" />
+    <input type="hidden" asp-for="Floor" />
+    <input type="hidden" asp-for="Area" />
+
+    <div class="mb-3">
+        <label asp-for="StartTime" class="form-label">开始时间</label>
+        <input asp-for="StartTime" class="form-control" type="datetime-local"
+               value="@Model.SuggestedStartTime.ToString("yyyy-MM-ddTHH:mm")" />
+        <span asp-validation-for="StartTime" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="EndTime" class="form-label">结束时间</label>
+        <input asp-for="EndTime" class="form-control" type="datetime-local"
+               value="@Model.SuggestedEndTime.ToString("yyyy-MM-ddTHH:mm")" />
+        <span asp-validation-for="EndTime" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">提交预约</button>
+    <a asp-controller="Seat" asp-action="Detail" asp-route-id="@Model.SeatId" class="btn btn-outline-secondary">取消</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
