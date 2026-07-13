@@ -111,7 +111,8 @@ public class ReservationController : Controller
     {
         try
         {
-            _reservationService.CancelReservation(id);
+            var studentName = HttpContext.Session.GetString("StudentName") ?? "学生1";
+            _reservationService.CancelReservation(id, studentName);
             TempData["SuccessMessage"] = "预约已取消";
         }
         catch (BusinessException ex)

@@ -69,7 +69,7 @@ public class ReservationService : IReservationService
         }
     }
 
-    public void CancelReservation(int reservationId)
+    public void CancelReservation(int reservationId, string studentName)
     {
         using var transaction = _context.Database.BeginTransaction();
         try
@@ -78,6 +78,9 @@ public class ReservationService : IReservationService
                 .Include(r => r.Seat)
                 .FirstOrDefault(r => r.Id == reservationId)
                 ?? throw new BusinessException("预约记录不存在");
+
+            if (reservation.StudentName != studentName)
+                throw new BusinessException("无权取消其他学生的预约");
 
             if (reservation.Status != ReservationStatus.待签到)
                 throw new BusinessException("当前预约状态不允许取消（仅待签到状态可以取消）");

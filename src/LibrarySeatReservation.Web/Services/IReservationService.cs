@@ -5,7 +5,7 @@ namespace LibrarySeatReservation.Web.Services;
 public interface IReservationService
 {
     void CreateReservation(int seatId, string studentName, DateTime startTime, DateTime endTime);
-    void CancelReservation(int reservationId);
+    void CancelReservation(int reservationId, string studentName);
     MyReservationsResult GetMyReservations(string studentName);
     AdminReservationResult GetAllReservations(ReservationStatus? statusFilter);
     void CheckIn(int reservationId);

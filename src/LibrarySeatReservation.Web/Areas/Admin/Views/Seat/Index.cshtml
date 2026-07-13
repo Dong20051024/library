@@ -1,8 +1,232 @@
+@model SeatViewModel
 @{
     ViewData["Title"] = "座位管理";
 }
 
-<div class="text-center py-5">
-    <h3>座位管理</h3>
-    <p class="text-muted">@ViewBag.Message</p>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="ls-h2 mb-0">座位管理</h2>
+    <button type="button" class="btn btn-ls-primary" data-bs-toggle="modal" data-bs-target="#createModal">
+        + 新增座位
+    </button>
 </div>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger alert-dismissible fade show">
+        @Model.ErrorMessage
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+@if (!Model.Items.Any())
+{
+    <div class="text-center py-5">
+        <p class="text-muted">暂未录入座位，点击上方"新增"按钮添加第一个座位</p>
+    </div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-ls">
+            <thead>
+                <tr>
+                    <th>座位号</th>
+                    <th>楼层</th>
+                    <th>区域</th>
+                    <th>设施</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td>@item.SeatNumber</td>
+                        <td>@item.Floor</td>
+                        <td>@item.Area</td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.Facilities))
+                            {
+                                var tags = item.Facilities.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+                                foreach (var tag in tags)
+                                {
+                                    <span class="badge bg-light text-dark me-1">@tag</span>
+                                }
+                            }
+                            else
+                            {
+                                <span class="text-muted">—</span>
+                            }
+                        </td>
+                        <td>
+                            @if (!item.IsActive)
+                            {
+                                <span class="badge bg-secondary">已禁用</span>
+                            }
+                            else
+                            {
+                                <span class="badge @item.StatusCssClass">@item.StatusText</span>
+                            }
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-outline-primary me-1"
+                                    data-bs-toggle="modal" data-bs-target="#editModal"
+                                    data-id="@item.Id"
+                                    data-seatnumber="@item.SeatNumber"
+                                    data-floor="@item.Floor"
+                                    data-area="@item.Area"
+                                    data-facilities="@item.Facilities">
+                                编辑
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-danger"
+                                    data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                    data-id="@item.Id"
+                                    data-seatnumber="@item.SeatNumber">
+                                删除
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@* ───── 新增弹窗 ───── *@
+<div class="modal fade modal-ls" id="createModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form asp-area="Admin" asp-controller="Seat" asp-action="Create" method="post">
+                @Html.AntiForgeryToken()
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title">新增座位</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">楼层 <span class="text-danger">*</span></label>
+                        <select name="Floor" class="form-select" required>
+                            <option value="">请选择楼层</option>
+                            <option value="3楼">3楼</option>
+                            <option value="5楼">5楼</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">区域 <span class="text-danger">*</span></label>
+                        <select name="Area" class="form-select" required>
+                            <option value="">请选择区域</option>
+                            <option value="A区">A区</option>
+                            <option value="B区">B区</option>
+                            <option value="C区">C区</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">座位号 <span class="text-danger">*</span></label>
+                        <input name="SeatNumber" class="form-control" placeholder="例如 A-01" required maxlength="20" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">设施标签</label>
+                        <input name="Facilities" class="form-control" placeholder="例如 靠窗,有插座（逗号分隔）" maxlength="200" />
+                        <div class="form-text">多个设施用逗号分隔</div>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-ls-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@* ───── 编辑弹窗 ───── *@
+<div class="modal fade modal-ls" id="editModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form asp-area="Admin" asp-controller="Seat" asp-action="Edit" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="Id" id="editId" />
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title">编辑座位</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">楼层 <span class="text-danger">*</span></label>
+                        <select name="Floor" id="editFloor" class="form-select" required>
+                            <option value="3楼">3楼</option>
+                            <option value="5楼">5楼</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">区域 <span class="text-danger">*</span></label>
+                        <select name="Area" id="editArea" class="form-select" required>
+                            <option value="A区">A区</option>
+                            <option value="B区">B区</option>
+                            <option value="C区">C区</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">座位号 <span class="text-danger">*</span></label>
+                        <input name="SeatNumber" id="editSeatNumber" class="form-control" required maxlength="20" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">设施标签</label>
+                        <input name="Facilities" id="editFacilities" class="form-control" maxlength="200" />
+                        <div class="form-text">多个设施用逗号分隔</div>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-ls-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@* ───── 删除确认弹窗 ───── *@
+<div class="modal fade modal-ls" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <form asp-area="Admin" asp-controller="Seat" asp-action="Delete" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="id" id="deleteId" />
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title">确认删除</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-1">确定要删除座位 <strong id="deleteSeatNumber"></strong> 吗？</p>
+                    <p class="text-muted small mb-0">如有有效预约记录，系统将阻止删除。</p>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-ls-danger">确认删除</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // ── 编辑弹窗：通过 data-* 属性预填 ──
+        document.getElementById('editModal')?.addEventListener('show.bs.modal', function (event) {
+            var btn = event.relatedTarget;
+            document.getElementById('editId').value = btn.getAttribute('data-id');
+            document.getElementById('editSeatNumber').value = btn.getAttribute('data-seatnumber');
+            document.getElementById('editFloor').value = btn.getAttribute('data-floor');
+            document.getElementById('editArea').value = btn.getAttribute('data-area');
+            document.getElementById('editFacilities').value = btn.getAttribute('data-facilities');
+        });
+
+        // ── 删除弹窗：通过 data-* 属性设置确认信息 ──
+        document.getElementById('deleteModal')?.addEventListener('show.bs.modal', function (event) {
+            var btn = event.relatedTarget;
+            document.getElementById('deleteId').value = btn.getAttribute('data-id');
+            document.getElementById('deleteSeatNumber').textContent = btn.getAttribute('data-seatnumber');
+        });
+    </script>
+}
