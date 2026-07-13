@@ -137,9 +137,9 @@ public class SeatController : Controller
 
     private static string GetSeatStatusCss(SeatStatus status) => status switch
     {
-        SeatStatus.空闲 => "badge-ls-free",
-        SeatStatus.已预约 => "badge-ls-reserved",
-        SeatStatus.使用中 => "badge-ls-occupied",
+        SeatStatus.空闲 => "ls-badge-free",
+        SeatStatus.已预约 => "ls-badge-reserved",
+        SeatStatus.使用中 => "ls-badge-occupied",
         _ => "bg-secondary"
     };
 }

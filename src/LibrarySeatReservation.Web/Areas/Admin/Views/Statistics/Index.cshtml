@@ -1,8 +1,112 @@
+@model StatisticsViewModel
 @{
-    ViewData["Title"] = "统计";
+    ViewData["Title"] = "数据统计";
 }
 
-<div class="text-center py-5">
-    <h3>数据统计</h3>
-    <p class="text-muted">@ViewBag.Message</p>
-</div>
+<h2 class="ls-h2 mb-4">数据统计</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger alert-dismissible fade show">
+        @Model.ErrorMessage
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+@if (Model.TotalActiveSeats == 0 && !Model.DailyStats.Any())
+{
+    <div class="text-center py-5">
+        <p class="text-muted">暂无统计数据</p>
+    </div>
+}
+else
+{
+    @* ───── 利用率卡片 ───── *@
+    <div class="row g-4 mb-4">
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <p class="text-muted mb-1 small">当前座位利用率</p>
+                    <h2 class="ls-h1 mb-0" style="color: #2B5F8A;">@Model.UtilizationPercentage%</h2>
+                    <div class="progress mt-2" style="height: 8px;">
+                        <div class="progress-bar" style="width: @Model.UtilizationPercentage%; background-color: #2B5F8A;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <p class="text-muted mb-1 small">空闲座位</p>
+                    <h2 class="ls-h1 mb-0" style="color: #27AE60;">@Model.FreeSeats</h2>
+                    <p class="text-muted small mt-1">/ @Model.TotalActiveSeats 个活跃座位</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <p class="text-muted mb-1 small">使用中 / 已预约</p>
+                    <h2 class="ls-h1 mb-0" style="color: #D35400;">@Model.OccupiedSeats</h2>
+                    <p class="text-muted small mt-1">使用中 · 已预约 @Model.ReservedSeats</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* ───── 座位状态分布条 ───── *@
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h5 class="card-title mb-3">座位状态分布</h5>
+            <div class="mb-2 d-flex align-items-center">
+                <span class="small" style="width: 60px;">空闲</span>
+                <div class="progress flex-grow-1" style="height: 24px;">
+                    <div class="progress-bar" style="width: @(Model.TotalActiveSeats > 0 ? (Model.FreeSeats * 100.0 / Model.TotalActiveSeats) : 0)%; background-color: #27AE60;">
+                        @Model.FreeSeats
+                    </div>
+                </div>
+            </div>
+            <div class="mb-2 d-flex align-items-center">
+                <span class="small" style="width: 60px;">已预约</span>
+                <div class="progress flex-grow-1" style="height: 24px;">
+                    <div class="progress-bar" style="width: @(Model.TotalActiveSeats > 0 ? (Model.ReservedSeats * 100.0 / Model.TotalActiveSeats) : 0)%; background-color: #E67E22;">
+                        @Model.ReservedSeats
+                    </div>
+                </div>
+            </div>
+            <div class="mb-2 d-flex align-items-center">
+                <span class="small" style="width: 60px;">使用中</span>
+                <div class="progress flex-grow-1" style="height: 24px;">
+                    <div class="progress-bar" style="width: @(Model.TotalActiveSeats > 0 ? (Model.OccupiedSeats * 100.0 / Model.TotalActiveSeats) : 0)%; background-color: #D35400;">
+                        @Model.OccupiedSeats
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* ───── 近 7 天预约趋势 ───── *@
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title mb-3">近 7 天预约趋势</h5>
+            @if (Model.MaxDailyCount == 0)
+            {
+                <p class="text-muted text-center py-3">近 7 天暂无预约记录</p>
+            }
+            else
+            {
+                <div class="d-flex align-items-end justify-content-around" style="height: 160px;">
+                    @foreach (var day in Model.DailyStats)
+                    {
+                        <div class="d-flex flex-column align-items-center" style="width: 60px;">
+                            <span class="small fw-bold mb-1">@day.ReservationCount</span>
+                            <div class="stat-bar" style="height: @(day.ReservationCount * 140 / Model.MaxDailyCount)px; @(day.ReservationCount > 0 ? "background-color: #2B5F8A;" : "background-color: #E5E7EB;")"></div>
+                            <span class="small text-muted mt-1">@day.Date</span>
+                            <span class="small text-muted">@day.DayLabel</span>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+}

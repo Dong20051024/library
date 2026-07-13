@@ -19,30 +19,37 @@ public class ReservationController : Controller
 
     public IActionResult Create(int seatId)
     {
-        var seat = _seatService.GetSeatDetail(seatId);
-        if (seat == null)
-            return RedirectToAction("NotFound", "Seat");
-
-        if (seat.Status != SeatStatus.空闲)
+        try
         {
-            var errorVm = new CreateViewModel
+            var seat = _seatService.GetSeatDetail(seatId);
+            if (seat == null)
+                return RedirectToAction("NotFound", "Seat");
+
+            if (seat.Status != SeatStatus.空闲)
             {
-                ErrorMessage = "该座位当前无法预约（当前状态：" + SeatController.GetSeatStatusText(seat.Status) + "）"
-            };
-            return View(errorVm);
-        }
+                var errorVm = new CreateViewModel
+                {
+                    ErrorMessage = "该座位当前无法预约（当前状态：" + SeatController.GetSeatStatusText(seat.Status) + "）"
+                };
+                return View(errorVm);
+            }
 
-        var suggestedStart = GetNextHourSlot(DateTime.Now);
-        var viewModel = new CreateViewModel
+            var suggestedStart = GetNextHourSlot(DateTime.Now);
+            var viewModel = new CreateViewModel
+            {
+                SeatId = seatId,
+                SeatNumber = seat.SeatNumber,
+                Floor = seat.Floor,
+                Area = seat.Area,
+                SuggestedStartTime = suggestedStart,
+                SuggestedEndTime = suggestedStart.AddHours(3)
+            };
+            return View(viewModel);
+        }
+        catch
         {
-            SeatId = seatId,
-            SeatNumber = seat.SeatNumber,
-            Floor = seat.Floor,
-            Area = seat.Area,
-            SuggestedStartTime = suggestedStart,
-            SuggestedEndTime = suggestedStart.AddHours(3)
-        };
-        return View(viewModel);
+            return RedirectToAction("List", "Seat");
+        }
     }
 
     [HttpPost]
