@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace LibrarySeatReservation.Web.Controllers.Admin;
 
 [Area("Admin")]
-[Route("Admin/[controller]")]
 public class LoginController : Controller
 {
     private readonly IAdminService _adminService;

@@ -1,0 +1,14 @@
+{
+  "name": "library-seat-reservation-tests",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "smoke": "playwright test --grep @smoke",
+    "e2e": "playwright test --grep @e2e"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.52.0"
+  }
+}

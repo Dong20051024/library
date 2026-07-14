@@ -28,3 +28,21 @@ appsettings.Development.json
 
 # OpenCode / AI
 .omo/
+
+# VS
+.vs/
+
+# Runtime junk
+*.err
+*.out
+stderr*.txt
+stdout*.txt
+
+# Other project skeletons
+LibrarySeatSystem.slnx
+src/LibrarySeatSystem.Web/
+
+# Playwright test artifacts
+tests/node_modules/
+tests/test-results/
+tests/test-report/

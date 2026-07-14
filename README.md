@@ -2,7 +2,7 @@
 
 轻量化的图书馆座位预约 Web 系统。学生在线查看座位状态、预约座位、取消预约；图书馆管理员后台管理座位和预约数据，确认签到和释放座位。
 
-> **当前阶段**：Sprint 3 — P2 收尾打磨 ✅ **进行中**（Sprint 2 前置已完成）
+> **当前阶段**：Sprint 4 — 联调测试 ✅ **正在收尾**
 > **技术栈**：ASP.NET Core MVC (.NET 8) + Razor + SQL Server LocalDB + EF Core + Bootstrap 5
 
 ---
@@ -55,7 +55,10 @@
 | 统计页 | P2 收尾 | Sprint 3 | ✅ 本轮完成 |
 | 统一错误提示检查 | 打磨 | Sprint 3 | ✅ 本轮完成 |
 | 响应式适配 | 打磨 | Sprint 3 | ⬜ 待开发 |
-| 全链路回归 + 文档最终化 | 交付 | Sprint 4 | ⬜ 待开发 |
+| 全链路回归 + 路由Bug修复 | 交付 | Sprint 4 | ✅ 本轮完成 |
+| Playwright 烟雾测试 | 交付 | Sprint 4 | ✅ 7/7 通过 |
+| 脚本烟雾测试 | 交付 | Sprint 4 | ✅ 4/4 通过 |
+| README + Tag v1.0.0 | 交付 | Sprint 4 | ⬜ 待收尾 |
 
 ---
 
@@ -136,6 +139,13 @@ dotnet run
 # 5. 浏览器访问
 # 用户端：http://localhost:5000/
 # 管理端：http://localhost:5000/Admin/Login
+
+# 6. （可选）运行 Playwright 烟雾测试
+cd ../../
+npx playwright test --grep '@smoke' --project=chromium
+
+# 7. （可选）运行脚本烟雾测试（需先启动应用）
+powershell ./scripts/smoke-test.ps1
 ```
 
 ---
@@ -194,11 +204,21 @@ dotnet run
 - [ ] 响应式适配
 - [ ] 原型对照检查
 
-### Sprint 4 — 最终交付（计划中）
+### Sprint 4 — 联调测试 ✅ 进行中
 
-- [ ] 全链路回归测试
-- [ ] 文档最终化
+- [x] Playwright 测试基础设施（@playwright/test v1.61.1 + msedge channel）
+- [x] 用户端烟雾测试（7 @smoke 场景：首页/切换账号/座位列表/我的预约/管理员登录）
+- [x] 管理端烟雾测试（2 @smoke 场景：管理员登录页/登录→预约管理）
+- [x] 用户端 E2E 测试（预约→确认→取消 + 非法取消校验）
+- [x] 管理端 E2E 测试（状态筛选/座位管理/统计页/签到操作/新增座位弹窗）
+- [x] PowerShell 脚本烟雾测试（5 端点 HTTP 可达性）
+- [x] Bug #001 路由冲突修复（Admin 控制器混合路由 → AmbiguousMatchException 消除）
+- [x] e2e 测试 locator 精度修复（3 处 exact:true/navbar 限域）
+- [ ] README 增量更新
+- [ ] git commit + git push
 - [ ] Git Tag v1.0.0
+
+详细测试记录见 [docs/16-联调测试与缺陷闭环.md](./docs/16-联调测试与缺陷闭环.md)。
 
 详细计划见 [docs/项目任务板与迭代记录.md](./docs/项目任务板与迭代记录.md)。
 
@@ -306,6 +326,7 @@ dotnet ef database update
 | [13-用户端主链路开发记录](./docs/13-用户端主链路开发记录.md) | Sprint 1a 用户端主链路施工记录 | ✅ 完成 |
 | [14-管理端与权限开发记录](./docs/14-管理端与权限开发记录.md) | Sprint 2a 管理端闭环与权限控制施工记录 | ✅ 完成 |
 | [15-功能完善与体验优化记录](./docs/15-功能完善与体验优化记录.md) | Sprint 3a 统计页 + 错误审计施工记录 | ✅ 完成 |
+| [16-联调测试与缺陷闭环](./docs/16-联调测试与缺陷闭环.md) | Sprint 4 Playwright 测试 + 路由 Bug 修复记录 | ✅ 完成 |
 | [项目任务板与迭代记录](./docs/项目任务板与迭代记录.md) | 任务追踪、Sprint 规划、迭代记录 | ✅ 完成 |
 
 ---

@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace LibrarySeatReservation.Web.Controllers.Admin;
 
 [Area("Admin")]
-[Route("Admin/[controller]")]
 [AdminAuthorize]
 public class ReservationController : Controller
 {
